@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style>
+    body { font-family: -apple-system, sans-serif; width: 320px; padding: 12px; background: #111827; color: #f3f4f6; }
+    h3 { margin: 0 0 8px; font-size: 14px; }
+    label { display: block; font-size: 12px; margin-top: 10px; margin-bottom: 4px; color: #9ca3af; }
+    input, textarea { width: 100%; box-sizing: border-box; padding: 6px; border-radius: 6px; border: 1px solid #374151; background: #1f2937; color: #f3f4f6; font-size: 12px; }
+    textarea { resize: vertical; height: 60px; }
+    .row { display: flex; align-items: center; gap: 6px; margin-top: 10px; }
+    button { margin-top: 12px; width: 100%; padding: 8px; border-radius: 6px; border: none; background: #2563eb; color: #fff; font-size: 13px; cursor: pointer; }
+    .hint { font-size: 11px; color: #6b7280; margin-top: 4px; }
+    .warn { font-size: 11px; color: #f59e0b; margin-top: 4px; }
+    #status { font-size: 12px; margin-top: 8px; color: #34d399; min-height: 14px; }
+    .pass-wrap { position: relative; }
+    .pass-wrap input { padding-right: 32px; }
+    .eye { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #9ca3af; cursor: pointer; font-size: 14px; margin: 0; width: auto; padding: 0; }
+  </style>
+</head>
+<body>
+  <h3>🔒 Field Encryptor</h3>
+  <div id="hostname" style="font-size:12px;color:#9ca3af;margin-bottom:4px;"></div>
+
+  <div class="row">
+    <input type="checkbox" id="enabled" />
+    <label for="enabled" style="margin:0;">Enabled for this site</label>
+  </div>
+
+  <label>API URL match (substring)</label>
+  <input type="text" id="urlMatch" placeholder="articles.finprohub.ai/api/vision/sync" />
+  <div class="hint">Only requests whose URL contains this string will be encrypted/decrypted.</div>
+
+  <label>Fields to encrypt (one dot-path per line)</label>
+  <textarea id="fields" placeholder="data.mondaySchedule[].task&#10;data.mondaySchedule[].notes"></textarea>
+  <div class="hint">Use [] for arrays: data.mondaySchedule[].task</div>
+
+  <label>Passphrase</label>
+  <div class="pass-wrap">
+    <input type="password" id="passphrase" placeholder="your secret passphrase" />
+    <button class="eye" id="toggle-pass">👁</button>
+  </div>
+  <div class="warn">⚠ Saved locally in your browser only — never sent to any server. Don't change it after encrypting data or you won't be able to decrypt.</div>
+
+  <button id="save">Save</button>
+  <div id="status"></div>
+  <script src="popup.js"></script>
+</body>
+</html>
